@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   # custom routes i'm writing
   get '/books/search', to: 'books#search'
 
+  get '/books/:id', to: 'books#show'
+
   # Defines the root path route ("/")
   # root "posts#index"
 end

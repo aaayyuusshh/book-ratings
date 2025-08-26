@@ -46,26 +46,35 @@ export default function Home() {
           Search
         </button>
       </form>
-
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {books.map((book: any) => {
           const info = book.volumeInfo || {};
           return (
             <div
               key={book.id}
-              className="bg-white rounded-lg shadow-md p-4 cursor-pointer hover:shadow-xl transition"
+              className="bg-white rounded-lg shadow-md p-4 cursor-pointer hover:shadow-xl transition flex flex-col items-center"
               onClick={() => navigate(`/books/${book.id}`)}
             >
               {info.imageLinks?.thumbnail && (
-                <img
-                  src={info.imageLinks.thumbnail}
-                  alt={info.title}
-                  className="w-full h-48 object-cover mb-4 rounded"
-                />
+                <div className="w-40 h-60 mb-4 overflow-hidden rounded-lg shadow-inner">
+                  <img
+                    src={info.imageLinks.thumbnail}
+                    alt={info.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               )}
-              <h2 className="text-lg font-semibold">{info.title}</h2>
+
+              <h2 className="text-lg font-semibold text-center">{info.title}</h2>
+
               {info.authors && (
-                <p className="text-gray-600 text-sm">{info.authors.join(", ")}</p>
+                <p className="text-gray-600 text-sm text-center">
+                  {info.authors.join(", ")}
+                </p>
+              )}
+
+              {book.saleInfo?.retailPrice?.amount && (
+                <p className="text-green-600 font-semibold mt-1">$ {book.saleInfo.retailPrice.amount} {book.saleInfo?.retailPrice?.currencyCode}</p>
               )}
             </div>
           );
